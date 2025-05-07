@@ -1,54 +1,40 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
-// Base class template
-template<typename T>
-class Base {
+template <typename T>
+class base{
     protected:
-        T a, b;
+    T var1;
+    T var2;
+
     public:
-        Base(T x, T y) : a(x), b(y) {}
+    base(T var1, T var2): var1(var1), var2(var2){}
 
-        // Method to multiply base class variables
-        T multiplyBase() const {
-            return a * b;
-        }
-
-        void displayBaseProduct() const {
-            cout << "Base Class Product (a * b): " << multiplyBase() << endl;
-        }
-};
-
-// Derived class template inheriting from Base<T>
-template<typename T>
-class Derived : public Base<T> {
-    private:
-        T c, d;
-    public:
-        // Constructor - initializes base and derived members
-        Derived(T x, T y, T m, T n) : Base<T>(x, y), c(m), d(n) {}
-
-        // Method to multiply derived class variables
-        T multiplyDerived() const {
-            return c * d;
-        }
-
-        void displayDerivedProduct() const {
-            cout << "Derived Class Product (c * d): " << multiplyDerived() << endl;
-        }
-        void displayAllProducts() const {
-            this->displayBaseProduct();
-            displayDerivedProduct();
-        }
-};
-
-int main() {
-    try {
-        Derived<int> obj(2, 3, 4, 5);
-        cout << "Multiplication Results:" << endl;
-        obj.displayAllProducts();
-    } catch (const exception& e) {
-        cerr << "Exception: " << e.what() << endl;
+    virtual void multiply()
+    {
+        cout<<"Product of base: "<<var1*var2<<endl;
     }
-    return 0;
+
+};
+
+template <typename T>
+class derived: public base<T>{
+    T var3;
+    T var4;
+
+    public:
+    derived(T var1, T var2, T var3, T var4): base<T>(var1, var2), var3(var3), var4(var4){}
+
+    void multiply() override {
+        cout<<"Product of base: "<<base<T>::var1* base<T>::var2<<endl;
+        cout<<"Product of derived: "<<var3*var4<<endl;
+    }
+};
+
+int main()
+{
+    base<int> b1(2, 4);
+    derived<int> d1(2, 4, 1, 3);
+    d1.multiply();
 }
+
